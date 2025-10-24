@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lo Siento 🐱</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 0;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .cat-icon {
+            font-size: clamp(100px, 25vw, 180px);
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 30px rgba(255, 255, 255, 0.3));
+            animation: floatCat 3s ease-in-out infinite;
+        }
+
+        @keyframes floatCat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .title {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .message {
+            font-size: clamp(1rem, 4vw, 1.25rem);
+            line-height: 1.6;
+            max-width: 500px;
+            text-align: center;
+            margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.85);
+            padding: 0 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 30px 25px;
+            margin: 20px auto;
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 60px;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            opacity: 0.3;
+            color: #667eea;
+        }
+
+        .paws {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            font-size: clamp(30px, 8vw, 40px);
+        }
+
+        .paw {
+            opacity: 0;
+            animation: popIn 0.5s forwards;
+        }
+
+        .paw:nth-child(1) { animation-delay: 0.1s; }
+        .paw:nth-child(2) { animation-delay: 0.3s; }
+        .paw:nth-child(3) { animation-delay: 0.5s; }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 20px;
+            width: 90%;
+            max-width: 300px;
+            touch-action: manipulation;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn:hover {
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .reveal {
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-card {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 30px 25px;
+            border-radius: 25px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .success-icon {
+            font-size: clamp(60px, 15vw, 80px);
+            margin-bottom: 15px;
+        }
+
+        .success-text {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hearts-float {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            font-size: clamp(25px, 6vw, 35px);
+            animation: heartFloat 4s ease-out forwards;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 25px 20px;
+            }
+            
+            .hero {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="hero">
+        <div class="cat-icon" id="catIcon">😿</div>
+        
+        <h1 class="title">Lo Siento Mucho</h1>
+        
+        <p class="message">
+            Sé que la regué y eso me tiene mal. Como este gatito triste, solo quiero que sepas cuánto lo lamento.
+        </p>
+
+        <div class="paws">
+            <span class="paw">🐾</span>
+            <span class="paw">🐾</span>
+            <span class="paw">🐾</span>
+        </div>
+
+        <div class="card">
+            <div class="quote">
+                Los gatitos siempre encuentran el camino de vuelta a casa. Yo solo quiero encontrar el camino de vuelta a ti.
+            </div>
+        </div>
+
+        <p class="message">
+            Prometo ser mejor y aprender de esto. Tu perdón significaría el mundo para mí.
+        </p>
+
+        <button class="btn" id="forgivBtn" onclick="forgive()">
+            ¿Me perdonas? 🥺
+        </button>
+
+        <div id="successMsg" class="hidden card">
+            <div class="success-card reveal">
+                <div class="success-icon">😻✨</div>
+                <div class="success-text">
+                    <strong>¡Gracias por perdonarme!</strong><br><br>
+                    Te prometo que esto no volverá a pasar. Eres increíble y no quiero perderte. 💜
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Crear estrellas de fondo
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        function forgive() {
+            const catIcon = document.getElementById('catIcon');
+            const btn = document.getElementById('forgivBtn');
+            const successMsg = document.getElementById('successMsg');
+            
+            // Cambiar gato a feliz
+            catIcon.textContent = '😻';
+            
+            // Ocultar botón y mostrar mensaje
+            btn.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+            
+            // Crear corazones flotantes
+            createHearts();
+            
+            // Vibrar si está disponible
+            if ('vibrate' in navigator) {
+                navigator.vibrate([100, 50, 100]);
+            }
+        }
+
+        function createHearts() {
+            const hearts = ['💖', '💕', '💗', '💓', '💝', '💜'];
+            const count = window.innerWidth < 768 ? 15 : 25;
+            
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'hearts-float';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.bottom = '0';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 150);
+            }
+        }
+
+        // Prevenir zoom en doble tap en iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
